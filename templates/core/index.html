@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static thumbnail %}
+{% thumbnail slide.image 100x100 crop %}
+
+{% block title %}Космическое агентство — NASA{% endblock %}
+
+{% block content %}
+
+<!-- ============================
+     NAVBAR
+============================= -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'img/nasa-logo.svg' %}" alt="NASA" height="44" />
+    </a>
+
+    <!-- Mobile toggler -->
+    <button class="navbar-toggler border-0" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+<div class="collapse navbar-collapse" id="navbarNav">
+
+  <!-- Пустой левый блок для баланса -->
+  <div class="flex-grow-1"></div>
+
+  <!-- Центр — два пункта меню -->
+  <ul class="navbar-nav align-items-lg-center gap-lg-4">
+    <li class="nav-item">
+      <a class="nav-link nav-link--custom" href="#advantages">Преимущества</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link nav-link--custom" href="#gallery">Фотографии</a>
+    </li>
+  </ul>
+
+  <!-- Правый блок — кнопка входа -->
+  <div class="flex-grow-1 d-flex justify-content-end">
+    <a class="btn btn-login" href="/admin/">Вход</a>
+  </div>
+
+</div>
+
+  </div>
+</nav>
+
+<!-- ============================
+     HERO / ADVANTAGES SECTION
+============================= -->
+<section id="advantages" class="section-advantages">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <h1 class="hero-title">Космическое агентство</h1>
+      <p class="hero-subtitle">
+        Национальное управление по аэронавтике и исследованию космического<br>
+        пространства — ведомство, относящееся к федеральному правительству<br>
+        США и подчиняющееся непосредственно президенту США.
+      </p>
+    </div>
+
+    <div class="row align-items-center g-5">
+
+      <!-- Left: Earth image -->
+      <div class="col-lg-5">
+        <div class="earth-wrap">
+          <img src="{% static 'img/foto.png' %}" alt="Земля из космоса"
+               class="earth-img img-fluid"/>
+        </div>
+      </div>
+
+      <!-- Right: Feature grid -->
+      <div class="col-lg-7">
+        <div class="row g-4">
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="{% static 'img/fa6-solid_shuttle-space.png' %}" alt="" />
+              </div>
+              <p class="feature-text">
+                Спейс шаттл —<br>пилотируемые<br>корабли
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="{% static 'img/ion_telescope (1).png' %}" alt="" />
+              </div>
+              <p class="feature-text">
+                Лучшее<br>телескопическое<br>оборудование
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="{% static 'img/bi_moon-stars-fill.png' %}" alt="" />
+              </div>
+              <p class="feature-text">
+                Исследовательские<br>станции на Луне — шаг<br>к новым открытиям!
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <img src="{% static 'img/bxs_medal.png' %}" alt="" />
+              </div>
+              <p class="feature-text">
+                Золотая медаль<br>по научным<br>исследованиям
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     GALLERY / SLIDER SECTION
+============================= -->
+<section id="gallery" class="section-gallery">
+  <div class="container">
+
+    <h2 class="section-title text-center">Фотографии</h2>
+
+    {% if slides %}
+
+      <!-- Main (big) slider -->
+      <div class="slider-main-wrap">
+        <div class="slider-for">
+          {% for slide in slides %}
+            <div class="slide-main-item">
+              <img
+                src="{% thumbnail slide.image 800x500 crop %}"
+                alt="{{ slide.title }}"
+                class="slide-main-img"
+                data-fullsrc="{{ slide.image.url }}"
+                data-title="{{ slide.title }}"
+              />
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Thumbnail nav slider -->
+      <div class="slider-nav-wrap">
+        <div class="slider-nav">
+          {% for slide in slides %}
+            <div class="slide-nav-item">
+              <img
+                src="{% thumbnail slide.image 120x80 crop %}"
+                alt="{{ slide.title }}"
+                class="slide-nav-img"
+              />
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    {% else %}
+      <p class="text-center text-muted py-5">
+        Слайды ещё не добавлены. <a href="/admin/">Добавить в админке</a>.
+      </p>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- ============================
+     LIGHTBOX OVERLAY
+============================= -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Галерея">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Предыдущее">&#8249;</button>
+  <button class="lightbox-next" id="lightboxNext" aria-label="Следующее">&#8250;</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" src="" alt="" />
+    <p id="lightboxCaption" class="lightbox-caption"></p>
+  </div>
+</div>
+
+{% endblock %}

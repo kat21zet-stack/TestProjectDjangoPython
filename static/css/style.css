@@ -1,0 +1,380 @@
+/* ===================================================
+   CSS Variables
+=================================================== */
+:root {
+  --color-bg:        #0d0e14;
+  --color-bg-alt:    #13141e;
+  --color-surface:   #1a1b28;
+  --color-accent:    #e8232a;
+  --color-text:      #e8eaf0;
+  --color-muted:     #8b8fa8;
+  --color-border:    rgba(255,255,255,0.08);
+
+  --font-display: 'Orbitron', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  --nav-height: 72px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --transition: 0.25s ease;
+}
+#gallery .container {
+  max-width: 1000px;  /* ← меняйте на нужное значение */
+}
+/* ===================================================
+   Reset / Base
+=================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+
+/* ===================================================
+   NAVBAR
+=================================================== */
+#mainNav {
+  height: var(--nav-height);
+  background: rgba(10, 11, 18, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition);
+}
+
+#mainNav.scrolled {
+  background: rgba(10, 11, 18, 0.98);
+}
+
+.navbar-brand img { filter: brightness(1); }
+
+.nav-link--custom {
+  color: var(--color-text) !important;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 4px !important;
+  position: relative;
+  transition: color var(--transition);
+}
+
+.nav-link--custom::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--color-accent);
+  transition: width var(--transition);
+}
+
+.nav-link--custom:hover { color: #fff !important; }
+.nav-link--custom:hover::after { width: 100%; }
+
+.btn-login {
+  background: var(--color-accent);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 24px;
+  border-radius: var(--radius-sm);
+  border: none;
+  transition: background var(--transition), transform var(--transition);
+  text-decoration: none;
+}
+
+.btn-login:hover {
+  background: #c01a20;
+  transform: translateY(-1px);
+}
+
+/* ===================================================
+   ADVANTAGES SECTION
+=================================================== */
+.section-advantages {
+  padding: calc(var(--nav-height) + 60px) 0 80px;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,35,42,0.06) 0%, transparent 70%),
+    var(--color-bg);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+}
+
+.hero-subtitle {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* Earth image */
+.earth-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.earth-img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 0 60px rgba(60, 130, 255, 0.2),
+    0 20px 60px rgba(0,0,0,0.5);
+  animation: floatEarth 6s ease-in-out infinite;
+}
+
+@keyframes floatEarth {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Feature cards */
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  /*background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+  border-color: var(--color-accent);
+  background: rgba(232,35,42,0.08);
+}
+
+.feature-icon img { width: 43px; height: 43px;  }
+
+.feature-text {
+  color: #ffff;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 4px;
+  text-align: center;
+}
+
+/* ===================================================
+   GALLERY SECTION
+=================================================== */
+.section-gallery {
+  padding: 80px 0 100px;
+  background: var(--color-bg-alt);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  margin-bottom: 48px;
+}
+
+/* Main slider */
+.slider-main-wrap {
+  margin-bottom: 12px;
+}
+
+.slider-for { cursor: zoom-in; }
+
+.slide-main-item {
+  outline: none;
+}
+
+.slide-main-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.slide-main-img:hover { opacity: 0.92; }
+
+/* Nav (thumbnail) slider */
+
+.slider-nav-wrap {
+
+  position: relative;
+  padding: 0 50px;
+}
+
+.slide-nav-item {
+  padding: 0 4px;
+  outline: none;
+}
+
+.slide-nav-img {
+  width: 100%;
+   height: 100px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  transition: opacity var(--transition), border-color var(--transition);
+}
+
+.slick-current .slide-nav-img,
+.slide-nav-img:hover {
+  opacity: 1;
+  border-color: #fff;
+}
+
+/* Slick arrows override */
+.slider-nav-wrap .slick-prev,
+.slider-nav-wrap .slick-next {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  z-index: 10;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.slider-nav-wrap .slick-prev { left: -6%; }
+.slider-nav-wrap .slick-next { right: -6%; }
+
+.slider-nav-wrap .slick-prev:hover,
+.slider-nav-wrap .slick-next:hover {
+  background: #c01a20;
+  /*transform: scale(1.08);*/
+}
+
+.slider-nav-wrap .slick-prev::before,
+.slider-nav-wrap .slick-next::before {
+  font-size: 18px;
+  line-height: 38px;
+}
+
+/* Slick dots */
+.slick-dots li button::before {
+  color: var(--color-muted);
+  font-size: 8px;
+}
+.slick-dots li.slick-active button::before { color: var(--color-accent); }
+
+/* ===================================================
+   LIGHTBOX
+=================================================== */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.95);
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.lightbox.active { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lightbox-inner {
+  position: relative;
+  max-width: 92vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#lightboxImg {
+  max-width: 92vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+  user-select: none;
+  animation: zoomIn 0.25s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.lightbox-caption {
+  color: var(--color-muted);
+  font-size: 13px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: fixed;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.lightbox-close {
+  top: 20px; right: 28px;
+  font-size: 42px;
+}
+
+.lightbox-close:hover { color: var(--color-accent); transform: scale(1.1); }
+
+.lightbox-prev,
+.lightbox-next {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  padding: 0 12px;
+}
+
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+
+.lightbox-prev:hover { color: var(--color-accent); transform: translateY(-50%) translateX(-3px); }
+.lightbox-next:hover { color: var(--color-accent); transform: translateY(-50%) translateX(3px); }
+
+/* ===================================================
+   Responsive
+=================================================== */
+@media (max-width: 768px) {
+  .slide-main-img { height: 260px; }
+  .slide-nav-img  { height: 56px; }
+  .hero-subtitle  { font-size: 13px; }
+}
